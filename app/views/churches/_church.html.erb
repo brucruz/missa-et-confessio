@@ -1,0 +1,39 @@
+<div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+  <div class="flex items-start gap-4">
+    <div class="p-3 bg-blue-50 rounded-full">
+      <%= lucide_icon "church", class: "w-6 h-6 text-blue-600" %>
+    </div>
+    <div class="flex-1">
+      <h3 class="text-lg font-semibold text-gray-900"><%= church.name %></h3>
+      <div class="flex items-center gap-1 text-gray-600 mt-1">
+        <%= lucide_icon "map-pin", class: "w-4 h-4" %>
+        <p class="text-sm"><%= church.address %></p>
+      </div>
+      <span class="text-sm text-blue-600 font-medium"><%= "10km" %></span>
+      
+      <div class="mt-4">
+        <h4 class="font-medium text-gray-900 flex items-center gap-2">
+          <%= lucide_icon "clock", class: "w-4 h-4" %>
+          Horários de Missa
+        </h4>
+        <ul class="mt-2 space-y-1">
+          <% church.mass_schedules.each do |mass| %>
+            <li class="text-sm text-gray-600"><%= mass %></li>
+          <% end %>
+        </ul>
+      </div>
+
+      <div class="mt-4">
+        <h4 class="font-medium text-gray-900 flex items-center gap-2">
+          <%= lucide_icon "clock", class: "w-4 h-4" %>
+          Confissões
+        </h4>
+        <ul class="mt-2 space-y-1">
+          <% church.confession_schedules.each do |confession| %>
+            <li class="text-sm text-gray-600"><%= confession %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

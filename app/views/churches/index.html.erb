@@ -1,0 +1,53 @@
+<div class="min-h-screen bg-gray-50 w-full">
+  <%# Hero Section %>
+  <div 
+    class="bg-cover bg-center h-[40vh] relative"
+    style="
+      background-image: url('https://images.unsplash.com/photo-1545861163-d695d041a44c?auto=format&fit=crop&q=80&w=2070');
+      background-blend-mode: overlay;
+      background-color: rgba(0, 0, 0, 0.5);
+    "
+  >
+    <div class="absolute inset-0 flex flex-col items-center justify-center text-white">
+      <%= lucide_icon "church", class: "w-16 h-16 mb-4" %>
+      <h1 class="text-4xl font-bold text-center mb-2">
+        Encontre Missas e Confissões
+      </h1>
+      <p class="text-xl opacity-90 mb-8">
+        Descubra horários em igrejas próximas a você
+      </p>
+      
+      <div class="w-full max-w-xl px-4">
+        <%= form_with url: churches_path, method: :get, class: "relative" do |f| %>
+          <%= f.text_field :location,
+            class: "w-full pr-24 py-4 rounded-lg text-gray-900 placeholder-gray-500 bg-white shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500",
+            placeholder: "Digite seu endereço ou CEP"
+          %>
+          <button type="submit" class="absolute right-6 top-1/2 transform -translate-y-1/2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors flex items-center gap-2">
+            <%= lucide_icon "search", class: "w-4 h-4" %>
+            Buscar
+          </button>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <%# Results Section %>
+  <div class="max-w-4xl mx-auto px-4 py-12">
+    <h2 class="text-2xl font-semibold text-gray-900 mb-6">
+      Igrejas Próximas
+    </h2>
+    
+    <div class="space-y-6">
+      <% @churches.each do |church| %>
+        <%= render "church", church: church %>
+      <% end %>
+    </div>
+  </div>
+
+  <%= link_to new_church_path, 
+    class: "fixed bottom-8 right-8 bg-blue-600 text-white p-4 rounded-full shadow-lg hover:bg-blue-700 transition-colors" do %>
+    <span class="sr-only">Adicionar Igreja</span>
+    <%= lucide_icon "plus", class: "w-6 h-6" %>
+  <% end %>
+</div>
