@@ -7,3 +7,8 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+churches = YAML.load_file(Rails.root.join('test/fixtures/churches.yml'))
+churches.each do |name, attributes|
+  Church.create!(attributes)
+end

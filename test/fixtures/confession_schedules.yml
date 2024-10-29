@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  church: one
+  day_of_week: 1
+  start_time: 2024-10-29 13:01:18
+  end_time: 2024-10-29 13:01:18
+  active: false
+
+two:
+  church: two
+  day_of_week: 1
+  start_time: 2024-10-29 13:01:18
+  end_time: 2024-10-29 13:01:18
+  active: false

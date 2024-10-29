@@ -1,0 +1,34 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+santo-antonio-de-piracicaba:
+  name: Categral Santo Antônio de Piracicaba
+  address: Rua Praça da Catedral Dom Ernesto de Paula, s/n - Centro, Piracicaba - SP
+  country: Brasil
+  state: São Paulo
+  city: Piracicaba
+  neighborhood: Centro
+  timezone: America/Sao_Paulo
+  latitude: -23.123456
+  longitude: -47.632541
+
+sao-joao-de-brito:
+  name: Paróquia São João de Brito
+  address: Rua Nebraska, 868 - Brooklin Novo, São Paulo - SP
+  country: Brasil
+  state: São Paulo
+  city: São Paulo
+  neighborhood: Brooklin Novo
+  timezone: America/Sao_Paulo
+  latitude: -23.5505
+  longitude: -46.6333
+
+nossa-senhora-do-brasil:
+  name: Paróquia Nossa Senhora do Brasil
+  address: Praça Nossa Senhora do Brasil, 01 - Jardim América, São Paulo - SP
+  country: Brasil
+  state: São Paulo
+  city: São Paulo
+  neighborhood: Jardim América
+  timezone: America/Sao_Paulo
+  latitude: -23.5694676
+  longitude: -46.6725933
