@@ -17,17 +17,24 @@
         Descubra horários em igrejas próximas a você
       </p>
       
-      <div class="w-full max-w-xl px-4">
+      <div class="w-full max-w-xl px-4" data-controller="address-search">
         <%= form_with url: churches_path, method: :get, class: "relative" do |f| %>
           <%= f.text_field :location,
+            data: {
+              address_search_target: "input",
+              action: "input->address-search#search"
+            },
             class: "w-full pr-24 py-4 rounded-lg text-gray-900 placeholder-gray-500 bg-white shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500",
-            placeholder: "Digite seu endereço ou CEP"
+            placeholder: "Digite seu endereço ou CEP",
+            autocomplete: "off"
           %>
           <button type="submit" class="absolute right-6 top-1/2 transform -translate-y-1/2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors flex items-center gap-2">
             <%= lucide_icon "search", class: "w-4 h-4" %>
             Buscar
           </button>
         <% end %>
+        
+        <div data-address-search-target="results" id="address_results"></div>
       </div>
     </div>
   </div>

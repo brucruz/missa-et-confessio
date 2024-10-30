@@ -12,5 +12,15 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "churches#index"
 
-  resources :churches, only: [ :index, :new, :create ]
+  resources :churches, only: [ :index, :new, :create ] do
+    collection do
+      get :search_address
+    end
+  end
+
+  resources :addresses, only: [] do
+    collection do
+      get :search
+    end
+  end
 end

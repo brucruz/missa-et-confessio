@@ -1,4 +1,32 @@
 class Church < ApplicationRecord
   has_many :mass_schedules, dependent: :destroy
   has_many :confession_schedules, dependent: :destroy
+
+  validates :name, :address, presence: true
+
+  after_validation :geocode
+
+  geocoded_by :address do |church, results|
+    if geo = results.first
+      state_component = geo.address_components_of_type(:administrative_area_level_1).first
+      city_component = geo.address_components_of_type(:administrative_area_level_2).first
+      neighborhood_component = geo.address_components_of_type(:sublocality_level_1).first
+
+      if state_component
+        state = state_component["long_name"]
+          .gsub("State of ", "")
+          .gsub("Estado de ", "")
+      end
+      # uf = state_component["short_name"] if state_component
+      city = city_component["long_name"] if city_component
+      neighborhood = neighborhood_component["long_name"] if neighborhood_component
+
+      church.state = state
+      church.city = city
+      church.neighborhood = neighborhood
+      church.latitude = geo.latitude
+      church.longitude = geo.longitude
+      debugger
+    end
+  end
 end
