@@ -19,8 +19,8 @@ sao-joao-de-brito:
   city: São Paulo
   neighborhood: Brooklin Novo
   timezone: America/Sao_Paulo
-  latitude: -23.5505
-  longitude: -46.6333
+  latitude: -23.607649
+  longitude: -46.684515
 
 nossa-senhora-do-brasil:
   name: Paróquia Nossa Senhora do Brasil
@@ -30,5 +30,5 @@ nossa-senhora-do-brasil:
   city: São Paulo
   neighborhood: Jardim América
   timezone: America/Sao_Paulo
-  latitude: -23.5694676
-  longitude: -46.6725933
+  latitude: -23.56952
+  longitude: -46.67213

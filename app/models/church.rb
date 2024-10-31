@@ -4,7 +4,8 @@ class Church < ApplicationRecord
 
   validates :name, :address, presence: true
 
-  after_validation :geocode, :set_timezone
+  after_validation :geocode, if: -> { address_changed? }
+  after_validation :set_timezone, if: -> { latitude_changed? || longitude_changed? }
 
   geocoded_by :address do |church, results|
     if geo = results.first
@@ -24,6 +25,7 @@ class Church < ApplicationRecord
       church.state = state
       church.city = city
       church.neighborhood = neighborhood
+      church.country = geo.country
       church.latitude = geo.latitude
       church.longitude = geo.longitude
     end

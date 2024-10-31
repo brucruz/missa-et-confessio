@@ -9,7 +9,9 @@
         <%= lucide_icon "map-pin", class: "w-4 h-4" %>
         <p class="text-sm"><%= church.address %></p>
       </div>
-      <span class="text-sm text-blue-600 font-medium"><%= "10km" %></span>
+      <% if defined?(church.distance) %>
+        <span class="text-sm text-blue-600 font-medium"><%= distance_to_human(church.distance) %></span>
+      <% end %>
       
       <div class="mt-4">
         <h4 class="font-medium text-gray-900 flex items-center gap-2">
