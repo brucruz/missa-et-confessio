@@ -4,7 +4,7 @@ class Church < ApplicationRecord
 
   validates :name, :address, presence: true
 
-  after_validation :geocode
+  after_validation :geocode, :set_timezone
 
   geocoded_by :address do |church, results|
     if geo = results.first
@@ -26,7 +26,10 @@ class Church < ApplicationRecord
       church.neighborhood = neighborhood
       church.latitude = geo.latitude
       church.longitude = geo.longitude
-      debugger
     end
+  end
+
+  def set_timezone
+    self.timezone = Timezone.lookup(latitude, longitude).name if latitude.present? && longitude.present?
   end
 end

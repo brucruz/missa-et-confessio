@@ -37,8 +37,9 @@ gem "bootsnap", require: false
 # Use Tailwind CSS [https://tailwindcss.com]
 gem "tailwindcss-rails"
 
-gem "lucide-rails"
 gem "geocoder"
+gem "lucide-rails"
+gem "timezone"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
