@@ -1,6 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
+  debounceInterval = 500;
   static targets = ["input", "results", "address"];
 
   initialize() {
@@ -19,7 +20,7 @@ export default class extends Controller {
 
     this.debounce = setTimeout(() => {
       this.performSearch(query);
-    }, 300);
+    }, this.debounceInterval);
   }
 
   performSearch(query) {
