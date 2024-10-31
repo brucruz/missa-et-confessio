@@ -2,7 +2,8 @@ class Church < ApplicationRecord
   has_many :mass_schedules, dependent: :destroy
   has_many :confession_schedules, dependent: :destroy
 
-  validates :name, :address, presence: true
+  validates :name, :address, :place_id, presence: true
+  validates :place_id, uniqueness: true
 
   after_validation :geocode, if: -> { address_changed? }
   after_validation :set_timezone, if: -> { latitude_changed? || longitude_changed? }
@@ -28,6 +29,7 @@ class Church < ApplicationRecord
       church.country = geo.country
       church.latitude = geo.latitude
       church.longitude = geo.longitude
+      church.place_id = geo.place_id
     end
   end
 

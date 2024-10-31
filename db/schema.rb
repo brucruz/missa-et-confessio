@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_31_130637) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_31_161904) do
   create_table "churches", force: :cascade do |t|
     t.string "name"
     t.string "address"
@@ -23,9 +23,10 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_31_130637) do
     t.decimal "longitude", precision: 10, scale: 6
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "place_id"
+    t.string "place_id", null: false
     t.index ["latitude", "longitude"], name: "index_churches_on_latitude_and_longitude"
     t.index ["name"], name: "index_churches_on_name"
+    t.index ["place_id"], name: "index_churches_on_place_id", unique: true
   end
 
   create_table "confession_schedules", force: :cascade do |t|
