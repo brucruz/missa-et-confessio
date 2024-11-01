@@ -3,7 +3,7 @@ Geocoder.configure(
   # timeout: 3,                 # geocoding service timeout (secs)
   lookup: Rails.env.test? ? :test : :google,         # name of geocoding service (symbol)
   # ip_lookup: :ipinfo_io,      # name of IP address geocoding service (symbol)
-  # language: :en,              # ISO-639 language code
+  language: :ptbr,              # ISO-639 language code
   # use_https: false,           # use HTTPS for lookup requests? (if supported)
   # http_proxy: nil,            # HTTP proxy server (user:pass@host:port)
   # https_proxy: nil,           # HTTPS proxy server (user:pass@host:port)
@@ -16,8 +16,6 @@ Geocoder.configure(
   google_places_search: {
     api_key: Rails.application.credentials.google_maps_api_key,
     timeout: 3
-    # fields: %w[]
-    # locationbias: "point:-36.8509,174.7645"
   }
 
   # Exceptions that should not be rescued by default

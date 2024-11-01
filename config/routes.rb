@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "mass_schedules/new"
+  get "mass_schedules/create"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -21,6 +23,7 @@ Rails.application.routes.draw do
   resources :addresses, only: [] do
     collection do
       get :search
+      get :search_churches
     end
   end
 end

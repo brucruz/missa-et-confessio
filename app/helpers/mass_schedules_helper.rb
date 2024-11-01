@@ -1,0 +1,2 @@
+module MassSchedulesHelper
+end

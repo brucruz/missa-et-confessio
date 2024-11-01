@@ -1,0 +1,17 @@
+<%= turbo_stream.update "church_results" do %>
+  <div class="mt-2 border rounded-lg divide-y">
+    <% @results.each do |result| %>
+      <%= form_with model: Church.new, class: "w-full" do |f| %>
+        <%= f.hidden_field :name, value: result.data["name"] %>
+        <%= f.hidden_field :address, value: result.address %>
+        <%= f.hidden_field :place_id, value: result.place_id %>
+        
+        <%= f.button type: "submit",
+          class: "w-full text-left px-4 py-3 hover:bg-gray-50" do %>
+          <div class="font-medium"><%= result.data["name"] %></div>
+          <div class="text-sm text-gray-600"><%= result.address %></div>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+<% end %> 

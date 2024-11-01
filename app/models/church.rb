@@ -29,7 +29,6 @@ class Church < ApplicationRecord
       church.country = geo.country
       church.latitude = geo.latitude
       church.longitude = geo.longitude
-      church.place_id = geo.place_id
     end
   end
 

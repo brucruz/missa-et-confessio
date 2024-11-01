@@ -1,0 +1,46 @@
+<div class="min-h-screen bg-gray-50 p-8">
+  <div class="max-w-2xl mx-auto">
+    <div class="bg-white rounded-lg shadow p-6">
+      <h1 class="text-2xl font-bold mb-6">Adicionar Igreja</h1>
+      
+      <%# Search Form %>
+      <%= form_with url: search_churches_addresses_path, 
+        method: :get,
+        class: "mb-8",
+        data: { 
+          turbo_frame: "church_results",
+          turbo_stream: true 
+        } do |f| %>
+        
+        <%= f.label :query, "Buscar Igreja", class: "block text-sm font-medium text-gray-700 mb-1" %>
+        <div class="flex gap-2">
+          <%= f.text_field :query,
+            class: "flex-1 rounded-lg border-gray-300",
+            data: {
+              controller: "form",
+              action: "input->form#submit"
+            },
+            placeholder: "Digite o nome da igreja..." %>
+
+          <%= f.button type: "submit", 
+            class: "px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" do %>
+            <%= lucide_icon "search", class: "w-4 h-4" %>
+          <% end %>
+        </div>
+      <% end %>
+
+      <%= turbo_frame_tag "church_results" do %>
+        <%# Results will be inserted here %>
+      <% end %>
+
+      <%# Church Form %>
+      <%= form_with model: @church, class: "mt-8" do |f| %>
+        <div class="hidden">
+          <%= f.text_field :name %>
+          <%= f.text_field :address %>
+          <%= f.text_field :place_id %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div> 
