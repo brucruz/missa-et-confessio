@@ -1,4 +1,4 @@
-<div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+<%= link_to church_path(church), class: "block bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow cursor-pointer" do %>
   <div class="flex items-start gap-4">
     <div class="p-3 bg-blue-50 rounded-full">
       <%= lucide_icon "church", class: "w-6 h-6 text-blue-600" %>
@@ -38,4 +38,4 @@
       </div>
     </div>
   </div>
-</div>
+<% end %>

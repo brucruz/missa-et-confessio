@@ -1,0 +1,91 @@
+<div class="min-h-screen bg-gray-50 w-full">
+  <%# Header %>
+  <div class="bg-white shadow">
+    <div class="max-w-7xl mx-auto px-4 py-6">
+      <%= link_to root_path, class: "text-blue-600 hover:text-blue-800 flex items-center gap-2 mb-4" do %>
+        <%= lucide_icon "arrow-left", class: "w-4 h-4" %>
+        Voltar para a página inicial
+      <% end %>
+      <div class="flex items-start gap-6">
+        <div class="p-4 bg-blue-50 rounded-lg">
+          <%= lucide_icon "church", class: "w-8 h-8 text-blue-600" %>
+        </div>
+        <div>
+          <h1 class="text-3xl font-bold text-gray-900"><%= @church.name %></h1>
+          <div class="flex items-center gap-2 text-gray-600 mt-2">
+            <%= lucide_icon "map-pin", class: "w-5 h-5" %>
+            <p><%= @church.address %></p>
+            <% if @church.respond_to?(:distance) && @church.distance.present? %>
+              <span class="text-blue-600 font-medium ml-2"><%= @church.distance %></span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%# Content %>
+  <div class="max-w-7xl mx-auto px-4 py-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <%# Main Content %>
+      <div class="md:col-span-2 space-y-8">
+        <%# Mass Schedules %>
+        <section class="bg-white rounded-lg shadow p-6">
+          <h2 class="text-xl font-semibold text-gray-900 flex items-center gap-2 mb-4">
+            <%= lucide_icon "calendar", class: "w-5 h-5 text-blue-600" %>
+            Horários de Missas
+          </h2>
+          <% if @church.mass_schedules.any? %>
+            <%# Render mass schedules %>
+          <% else %>
+            <p class="text-gray-500 italic">Nenhum horário de missa cadastrado</p>
+          <% end %>
+        </section>
+
+        <%# Confession Schedules %>
+        <section class="bg-white rounded-lg shadow p-6">
+          <h2 class="text-xl font-semibold text-gray-900 flex items-center gap-2 mb-4">
+            <%= lucide_icon "heart", class: "w-5 h-5 text-blue-600" %>
+            Horários de Confissão
+          </h2>
+          <% if @church.confession_schedules.any? %>
+            <%# Render confession schedules %>
+          <% else %>
+            <p class="text-gray-500 italic">Nenhum horário de confissão cadastrado</p>
+          <% end %>
+        </section>
+
+        <%# Description - Future Feature %>
+        <section class="bg-white rounded-lg shadow p-6 opacity-50">
+          <h2 class="text-xl font-semibold text-gray-900 flex items-center gap-2 mb-4">
+            <%= lucide_icon "file-text", class: "w-5 h-5 text-blue-600" %>
+            Sobre a Igreja
+          </h2>
+          <p class="text-gray-500 italic">Descrição em breve...</p>
+        </section>
+      </div>
+
+      <%# Sidebar %>
+      <div class="space-y-6">
+        <%# Diocese Information - Future Feature %>
+        <section class="bg-white rounded-lg shadow p-6 opacity-50">
+          <h2 class="text-xl font-semibold text-gray-900 flex items-center gap-2 mb-4">
+            <%= lucide_icon "building-2", class: "w-5 h-5 text-blue-600" %>
+            Diocese
+          </h2>
+          <p class="text-gray-500 italic">Informações da diocese em breve...</p>
+        </section>
+
+        <%# Map Preview %>
+        <div class="bg-white rounded-lg shadow p-6">
+          <div class="aspect-w-16 aspect-h-9 bg-gray-100 rounded-lg">
+            <%# Map will be added here %>
+            <div class="flex items-center justify-center h-48 bg-gray-100 rounded-lg">
+              <%= lucide_icon "map-pin", class: "w-8 h-8 text-gray-400" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

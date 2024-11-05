@@ -24,10 +24,14 @@ class ChurchesController < ApplicationController
     end
 
     if @church.save
-      redirect_to new_church_mass_schedule_path(@church), notice: "#{@church.previously_new_record? ? "Igreja criada com sucesso" : "Igreja já existe"}, adicione agora os horários de missas."
+      redirect_to church_path(@church), notice: "#{@church.previously_new_record? ? "Igreja criada com sucesso" : "Igreja já existe"}, adicione agora os horários de missas."
     else
       render :new, status: :unprocessable_entity, alert: "Erro ao criar igreja, tente novamente."
     end
+  end
+
+  def show
+    @church = Church.find(params[:id])
   end
 
   private

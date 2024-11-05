@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "confession_schedules/new"
+  get "confession_schedules/create"
   get "mass_schedules/new"
   get "mass_schedules/create"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -14,7 +16,9 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "churches#index"
 
-  resources :churches, only: [ :index, :new, :create ] do
+  resources :churches, only: [ :index, :new, :create, :show ] do
+    resources :mass_schedules, only: [ :new, :create ]
+    resources :confession_schedules, only: [ :new, :create ]
     collection do
       get :search_address
     end
