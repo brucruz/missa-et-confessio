@@ -35,10 +35,20 @@
             <%= lucide_icon "calendar", class: "w-5 h-5 text-blue-600" %>
             Horários de Missas
           </h2>
-          <% if @church.mass_schedules.any? %>
-            <%# Render mass schedules %>
+          <% if @mass_schedules.any? %>
+            <%= render "mass_schedules/mass_schedules", mass_schedules: @mass_schedules %>
           <% else %>
-            <p class="text-gray-500 italic">Nenhum horário de missa cadastrado</p>
+            <div class="space-y-4">
+              <%= turbo_frame_tag "new_mass_schedule" do %>
+                <p class="text-gray-500 italic pb-2">Nenhum horário de missa cadastrado</p>
+
+                <%= link_to new_church_mass_schedule_path(@church), 
+                    class: "inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md" do %>
+                  <%= lucide_icon "plus", class: "w-4 h-4" %>
+                  Adicionar horário de missa
+                <% end %>
+              <% end %>
+            </div>
           <% end %>
         </section>
 

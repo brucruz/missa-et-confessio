@@ -19,21 +19,31 @@ class MassSchedulesController < ApplicationController
 
       # Then create or update the new schedules
       mass_schedule_params[:schedules_attributes].each do |schedule_params|
-        next if schedule_params[:start_time].blank?
+        schedule_params_values = schedule_params.last
+        next if schedule_params_values[:start_time].blank?
 
         schedule = @church.mass_schedules.find_or_initialize_by(
-          day_of_week: schedule_params[:day_of_week]
+          day_of_week: schedule_params_values[:day_of_week]
         )
 
+        # Convert local time to UTC based on church's timezone
+        local_time = Time.parse(schedule_params_values[:start_time])
+        utc_time = ActiveSupport::TimeZone[@church.timezone].local_to_utc(local_time)
+
         schedule.update!(
-          start_time: schedule_params[:start_time],
+          start_time: utc_time,
           active: true
         )
       end
     end
 
-    redirect_to new_church_confession_schedule_path(@church),
-      notice: "Horários de missa adicionados com sucesso. Agora adicione os horários de confissão."
+    redirect_to church_mass_schedules_path(@church),
+      notice: "Horários de missa adicionados com sucesso."
+  end
+
+  def index
+    @church = Church.find(params[:church_id])
+    @mass_schedules = @church.mass_schedules.where(active: true).group_by(&:day_of_week)
   end
 
   private

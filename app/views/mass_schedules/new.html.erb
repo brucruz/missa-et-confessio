@@ -1,41 +1,29 @@
-<div class="min-h-screen bg-gray-50 p-8 w-full">
-  <div class="max-w-2xl mx-auto">
-    <div class="bg-white rounded-lg shadow p-6">
-      <h1 class="text-2xl font-bold mb-2">Horários de Missa</h1>
-      <p class="text-gray-600 mb-6"><%= @church.name %></p>
-
-      <%= form_with scope: :mass_schedules, url: church_mass_schedules_path(@church), class: "space-y-6" do |f| %>
-        <div class="space-y-4">
-          <% @mass_schedules.each_with_index do |schedule, index| %>
-            <%= f.fields_for "schedules_attributes[#{index}]", schedule do |sf| %>
-              <div class="flex items-center gap-4">
-                <div class="w-20">
-                  <%= sf.check_box :active,
-                    class: "rounded border-gray-300 text-blue-600 mr-2" %>
-                  <%= sf.label :active, 
-                    @days[index][0].first(3).upcase,
-                    class: "font-medium" %>
-                </div>
-
-                <%= sf.hidden_field :day_of_week %>
-
-                <div class="flex-1">
-                  <%= sf.time_field :start_time,
-                    class: "rounded-lg border-gray-300 w-full #{'opacity-50' unless schedule.active?}" %>
-                </div>
+<%= turbo_frame_tag "new_mass_schedule" do %>
+  <div class="p-4 w-full">
+    <%= form_with scope: :mass_schedules, url: church_mass_schedules_path(@church), class: "space-y-6" do |f| %>
+      <div class="space-y-4">
+        <% @mass_schedules.each_with_index do |schedule, index| %>
+          <%= f.fields_for :schedules_attributes, schedule, index: index do |sf| %>
+            <div class="flex items-center gap-4">
+              <div class="w-32">
+                <%= sf.check_box :active, class: "rounded border-gray-300 text-blue-600 mr-2" %>
+                <%= sf.label :active, @days[index][0].split('-').first.titleize, class: "font-medium" %>
               </div>
-            <% end %>
-          <% end %>
-        </div>
 
-        <div class="flex justify-end gap-4 pt-4 border-t">
-          <%= link_to "Voltar", new_church_path, 
-            class: "px-4 py-2 text-gray-700 hover:text-gray-900" %>
-          
-          <%= f.submit "Continuar para Horários de Confissão",
-            class: "px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" %>
-        </div>
-      <% end %>
-    </div>
+              <%= sf.hidden_field :day_of_week %>
+
+              <div class="flex-1">
+                <%= sf.time_field :start_time, class: "rounded-lg border-gray-300 #{'opacity-50' unless schedule.active?}" %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="flex justify-end gap-4 pt-4 border-t">
+        <%= link_to "Cancelar", church_path(@church), class: "px-4 py-2 text-gray-700 hover:text-gray-900", target: "_top" %>
+        <%= f.submit "Confirmar alterações", class: "px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" %>
+      </div>
+    <% end %>
   </div>
-</div>
+<% end %>

@@ -32,6 +32,7 @@ class ChurchesController < ApplicationController
 
   def show
     @church = Church.find(params[:id])
+    @mass_schedules = @church.mass_schedules.where(active: true).group_by(&:day_of_week)
   end
 
   private

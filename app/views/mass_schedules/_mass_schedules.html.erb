@@ -1,0 +1,11 @@
+<% if mass_schedules.any? %>
+  <% mass_schedules.each do |schedule| %>
+    <div class="flex items-center gap-2">
+      <span class="font-medium"><%= I18n.t("date.day_names")[schedule.first].titleize %>: </span>
+
+      <span class="text-gray-700"><%= schedule.last.map { |day_schedule| day_schedule.start_time.strftime("%H:%M") }.join(", ") %></span>
+    </div>
+  <% end %>
+<% else %>
+  <p class="text-gray-500">Nenhum horário de missa encontrado</p>
+<% end %>

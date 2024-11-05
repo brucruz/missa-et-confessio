@@ -19,9 +19,7 @@
           Horários de Missa
         </h4>
         <ul class="mt-2 space-y-1">
-          <% church.mass_schedules.each do |mass| %>
-            <li class="text-sm text-gray-600"><%= mass %></li>
-          <% end %>
+          <%= render "mass_schedules/mass_schedules", mass_schedules: church.mass_schedules.group_by(&:day_of_week) %>
         </ul>
       </div>
 
