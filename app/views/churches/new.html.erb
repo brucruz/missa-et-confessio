@@ -9,7 +9,9 @@
         class: "mb-8",
         data: { 
           turbo_frame: "church_results",
-          turbo_stream: true 
+          turbo_stream: true,
+          controller: "loading-button",
+          action: "turbo:submit-start->loading-button#loading turbo:submit-end->loading-button#reset"
         } do |f| %>
         
         <%= f.label :query, "Buscar Igreja", class: "block text-sm font-medium text-gray-700 mb-1" %>
@@ -23,23 +25,29 @@
             placeholder: "Digite o nome da igreja..." %>
 
           <%= f.button type: "submit", 
-            class: "px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" do %>
-            <%= lucide_icon "search", class: "w-4 h-4" %>
+            class: "px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed",
+            data: { loading_button_target: "button" } do %>
+            <%= lucide_icon "search", 
+                class: "w-4 h-4", 
+                data: { loading_button_target: "icon" } %>
           <% end %>
         </div>
       <% end %>
 
-      <%= turbo_frame_tag "church_results" do %>
-        <%# Results will be inserted here %>
-      <% end %>
-
       <%# Church Form %>
-      <%= form_with model: @church, class: "mt-8" do |f| %>
-        <div class="hidden">
-          <%= f.text_field :name %>
-          <%= f.text_field :address %>
-          <%= f.text_field :place_id %>
-        </div>
+      <%= form_with model: @church, class: "mt-8", data: { controller: "church-selection" } do |f| %>
+        <%= f.hidden_field :name %>
+        <%= f.hidden_field :address %>
+        <%= f.hidden_field :place_id %>
+        
+        <%= turbo_frame_tag "church_results" do %>
+          <%# Results will be inserted here %>
+        <% end %>
+
+        <%= f.submit "Adicionar Igreja Selecionada",
+          class: "w-full mt-6 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed",
+          disabled: true,
+          data: { church_selection_target: "submit" } %>
       <% end %>
     </div>
   </div>

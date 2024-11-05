@@ -31,6 +31,6 @@ class AddressesController < ApplicationController
   private
 
   def fetch_geocoder_results
-    Geocoder.search(params[:query], lookup: :google_places_search)
+    Geocoder.search(params[:query], lookup: :google_places_search, language: :ptbr)
   end
 end

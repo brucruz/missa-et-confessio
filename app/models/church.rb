@@ -8,8 +8,12 @@ class Church < ApplicationRecord
   after_validation :geocode, if: -> { address_changed? }
   after_validation :set_timezone, if: -> { latitude_changed? || longitude_changed? }
 
-  geocoded_by :address do |church, results|
+  geocoded_by :address, lookup: :google do |church, results|
     if geo = results.first
+      if geo.address_components.nil?
+        throw(:abort)
+      end
+
       state_component = geo.address_components_of_type(:administrative_area_level_1).first
       city_component = geo.address_components_of_type(:administrative_area_level_2).first
       neighborhood_component = geo.address_components_of_type(:sublocality_level_1).first

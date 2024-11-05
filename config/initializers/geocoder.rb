@@ -11,11 +11,11 @@ Geocoder.configure(
   # cache: nil,                 # cache object (must respond to #[], #[]=, and #del)
   google: {
     api_key: Rails.application.credentials.google_maps_api_key,
-    timeout: 3
+    timeout: 10
   },
   google_places_search: {
     api_key: Rails.application.credentials.google_maps_api_key,
-    timeout: 3
+    timeout: 10
   }
 
   # Exceptions that should not be rescued by default
