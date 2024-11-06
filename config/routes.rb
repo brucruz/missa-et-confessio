@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   root "churches#index"
 
   resources :churches, only: [ :index, :new, :create, :show ] do
-    resources :mass_schedules, only: [ :new, :create, :index ]
+    resources :mass_schedules, only: [ :new, :create, :index, :edit, :update ]
     resources :confession_schedules, only: [ :new, :create ]
     collection do
       get :search_address

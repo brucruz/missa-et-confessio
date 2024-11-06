@@ -30,13 +30,22 @@
       <%# Main Content %>
       <div class="md:col-span-2 space-y-8">
         <%# Mass Schedules %>
-        <section class="bg-white rounded-lg shadow p-6">
+        <section class="bg-white rounded-lg shadow p-6 relative">
           <h2 class="text-xl font-semibold text-gray-900 flex items-center gap-2 mb-4">
             <%= lucide_icon "calendar", class: "w-5 h-5 text-blue-600" %>
             Horários de Missas
           </h2>
           <% if @mass_schedules.any? %>
-            <%= render "mass_schedules/mass_schedules", mass_schedules: @mass_schedules %>
+              <%= turbo_frame_tag "edit_mass_schedule", class: "flex flex-col justify-between items-start gap-4" do %>
+                <%= link_to edit_church_mass_schedule_path(@church), class: "absolute right-6 top-6 text-gray-400 hover:text-gray-600" do %>
+                  <div class="flex items-center gap-2">
+                    <%= lucide_icon "pencil", class: "w-5 h-5 text-sm" %>
+                    Editar horários
+                  </div>
+                <% end %>
+
+                <%= render "mass_schedules/mass_schedules", mass_schedules: @mass_schedules %>
+              <% end %>
           <% else %>
             <div class="space-y-4">
               <%= turbo_frame_tag "new_mass_schedule" do %>
