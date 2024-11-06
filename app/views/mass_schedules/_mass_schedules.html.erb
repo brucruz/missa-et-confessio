@@ -3,7 +3,8 @@
     <div class="flex items-center gap-2">
       <span class="font-medium"><%= I18n.t("date.day_names")[schedule.first].titleize %>: </span>
 
-      <span class="text-gray-700"><%= schedule.last.map { |day_schedule| day_schedule.start_time.strftime("%H:%M") }.join(", ") %></span>
+      <span class="text-gray-700"><%= schedule.last.map { |day_schedule| format_time(day_schedule.start_time, day_schedule.church.timezone) }
+                                                   .join(", ") %></span>
     </div>
   <% end %>
 <% else %>

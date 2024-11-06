@@ -1,6 +1,9 @@
 <%= turbo_frame_tag "new_mass_schedule" do %>
   <div class="p-4 w-full">
-    <%= form_with scope: :mass_schedules, url: church_mass_schedules_path(@church), class: "space-y-6" do |f| %>
+    <%= form_with scope: :mass_schedules,
+                  url: church_mass_schedules_path(@church),
+                  class: "space-y-6",
+                  data: { turbo_frame: "_top" } do |f| %>
       <div class="space-y-4">
         <% @mass_schedules.each_with_index do |schedule, index| %>
           <%= f.fields_for :schedules_attributes, schedule, index: index do |sf| %>

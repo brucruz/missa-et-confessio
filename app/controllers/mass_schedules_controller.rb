@@ -37,7 +37,7 @@ class MassSchedulesController < ApplicationController
       end
     end
 
-    redirect_to church_mass_schedules_path(@church),
+    redirect_to church_path(@church),
       notice: "Horários de missa adicionados com sucesso."
   end
 
