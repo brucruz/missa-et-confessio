@@ -1,6 +1,7 @@
 <%= form_with scope: :mass_schedules,
-              url: church_mass_schedules_path(@church),
-              class: "space-y-6",
+              url: url,
+              method: method,
+              class: "space-y-6", 
               data: { turbo_frame: "_top" } do |f| %>
   <div class="space-y-4">
     <% @mass_schedules.each_with_index do |schedule, index| %>
@@ -14,7 +15,9 @@
           <%= sf.hidden_field :day_of_week %>
 
           <div class="flex-1">
-            <%= sf.time_field :start_time, class: "rounded-lg border-gray-300 #{'opacity-50' unless schedule.active?}" %>
+            <%= sf.time_field :start_time, 
+                            value: format_time_in_local_timezone(schedule.start_time, @church.timezone),
+                            class: "rounded-lg border-gray-300 #{'opacity-50' unless schedule.active?}" %>
           </div>
         </div>
       <% end %>

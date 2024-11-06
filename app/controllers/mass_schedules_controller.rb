@@ -9,7 +9,7 @@ class MassSchedulesController < ApplicationController
     @church = Church.find(params[:church_id])
 
     if @church.mass_schedules.exists?
-      redirect_to edit_church_mass_schedules_path(@church)
+      redirect_to edit_church_mass_schedule_path(@church)
       return
     end
 
