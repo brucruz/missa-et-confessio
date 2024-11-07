@@ -1,6 +1,6 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-santo-antonio-de-piracicaba:
+santo_antonio_de_piracicaba:
   name: Catedral Santo Antônio de Piracicaba
   address: Rua Praça da Catedral Dom Ernesto de Paula, s/n - Centro, Piracicaba - SP
   country: Brasil
@@ -10,8 +10,9 @@ santo-antonio-de-piracicaba:
   timezone: America/Sao_Paulo
   latitude: -23.123456
   longitude: -47.632541
+  place_id: ChIJR92XPQkxxpQRbocUfr3yBWU
 
-sao-joao-de-brito:
+sao_joao_de_brito:
   name: Paróquia São João de Brito
   address: Rua Nebraska, 868 - Brooklin Novo, São Paulo - SP
   country: Brasil
@@ -21,8 +22,9 @@ sao-joao-de-brito:
   timezone: America/Sao_Paulo
   latitude: -23.607649
   longitude: -46.684515
+  place_id: ChIJqR1y8bNQzpQRhsw1ctMgpjM
 
-nossa-senhora-do-brasil:
+nossa_senhora_do_brasil:
   name: Paróquia Nossa Senhora do Brasil
   address: Praça Nossa Senhora do Brasil, 01 - Jardim América, São Paulo - SP
   country: Brasil
@@ -32,3 +34,4 @@ nossa-senhora-do-brasil:
   timezone: America/Sao_Paulo
   latitude: -23.56952
   longitude: -46.67213
+  place_id: ElJQw6dhLiBOb3NzYSBTcmEuIGRvIEJyYXNpbCwgMSAtIEphcmRpbSBBbWVyaWNhLCBTw6NvIFBhdWxvIC0gU1AsIDQ3ODAzLTA1NiwgQnJhemlsIjASLgoUChIJN5h_PX1XzpQRum-oCbps1IEQASoUChIJUaERFn1XzpQR_fucf0rby_I

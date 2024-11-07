@@ -5,8 +5,8 @@ class Church < ApplicationRecord
   validates :name, :address, :place_id, presence: true
   validates :place_id, uniqueness: true
 
-  after_validation :geocode, if: -> { address_changed? }
-  after_validation :set_timezone, if: -> { latitude_changed? || longitude_changed? }
+  after_validation :geocode, if: -> { address_changed? && !Rails.env.test? }
+  after_validation :set_timezone, if: -> { (latitude_changed? || longitude_changed?) && !Rails.env.test? }
 
   geocoded_by :address, lookup: :google do |church, results|
     if geo = results.first
