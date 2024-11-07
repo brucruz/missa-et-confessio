@@ -16,6 +16,9 @@ Geocoder.configure(
   google_places_search: {
     api_key: Rails.application.credentials.google_maps_api_key,
     timeout: 10
+  },
+  test: {
+    ip_lookup: :test
   }
 
   # Exceptions that should not be rescued by default

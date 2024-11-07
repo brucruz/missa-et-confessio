@@ -11,10 +11,10 @@
           <%= lucide_icon "church", class: "w-8 h-8 text-blue-600" %>
         </div>
         <div>
-          <h1 class="text-3xl font-bold text-gray-900"><%= @church.name %></h1>
+          <h1 class="text-2xl md:text-3xl font-bold text-gray-900"><%= @church.name %></h1>
           <div class="flex items-center gap-2 text-gray-600 mt-2">
-            <%= lucide_icon "map-pin", class: "w-5 h-5" %>
-            <p><%= @church.address %></p>
+            <%= lucide_icon "map-pin", class: "flex-shrink-0 w-4 h-4 md:w-5 md:h-5" %>
+            <p class="text-sm md:text-base"><%= @church.address %></p>
             <% if @church.respond_to?(:distance) && @church.distance.present? %>
               <span class="text-blue-600 font-medium ml-2"><%= @church.distance %></span>
             <% end %>
@@ -38,9 +38,9 @@
           <% if @mass_schedules.any? %>
               <%= turbo_frame_tag "edit_mass_schedule", class: "flex flex-col justify-between items-start gap-4" do %>
                 <%= link_to edit_church_mass_schedule_path(@church), class: "absolute right-6 top-6 text-gray-400 hover:text-gray-600" do %>
-                  <div class="flex items-center gap-2">
-                    <%= lucide_icon "pencil", class: "w-5 h-5 text-sm" %>
-                    Editar horários
+                  <div class="flex items-center gap-1.5">
+                    <%= lucide_icon "pencil", class: "size-4 text-sm" %>
+                    <span class="hidden md:block">Editar horários</span>
                   </div>
                 <% end %>
 

@@ -1,13 +1,12 @@
 class MassSchedulesController < ApplicationController
+  before_action :set_church
+  before_action :set_days, only: [ :new, :edit ]
+
   def new
-    @church = Church.find(params[:church_id])
-    @days = I18n.t("date.day_names").each_with_index.map { |name, index| [ name, index ] }
     @mass_schedules = initialize_mass_schedules
   end
 
   def create
-    @church = Church.find(params[:church_id])
-
     if @church.mass_schedules.exists?
       redirect_to edit_church_mass_schedule_path(@church)
       return
@@ -20,13 +19,10 @@ class MassSchedulesController < ApplicationController
   end
 
   def edit
-    @church = Church.find(params[:church_id])
-    @days = I18n.t("date.day_names").each_with_index.map { |name, index| [ name, index ] }
     @mass_schedules = initialize_mass_schedules
   end
 
   def update
-    @church = Church.find(params[:church_id])
     save_mass_schedules
 
     redirect_to church_path(@church),
@@ -34,11 +30,18 @@ class MassSchedulesController < ApplicationController
   end
 
   def index
-    @church = Church.find(params[:church_id])
     @mass_schedules = @church.mass_schedules.where(active: true).group_by(&:day_of_week)
   end
 
   private
+
+  def set_church
+    @church = Church.find(params[:church_id])
+  end
+
+  def set_days
+    @days = I18n.t("date.day_names").each_with_index.map { |name, index| [ name, index ] }
+  end
 
   def initialize_mass_schedules
     @days.map do |name, wday|
