@@ -1,0 +1,12 @@
+<%= turbo_stream.after @target_dom_id do %>
+  <%= fields_for :mass_schedules do |f| %>
+    <%= f.fields_for :schedules_attributes, @new_schedule, index: @index do |sf| %>
+      <%= render "schedule_fields", 
+                schedule_fields: sf, 
+                schedule: @new_schedule, 
+                day_name: @days[@new_schedule.day_of_week][0],
+                church: @church,
+                index: @index %>
+    <% end %>
+  <% end %>
+<% end %>

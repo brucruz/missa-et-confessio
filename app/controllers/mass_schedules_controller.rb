@@ -1,6 +1,6 @@
 class MassSchedulesController < ApplicationController
   before_action :set_church
-  before_action :set_days, only: [ :new, :edit ]
+  before_action :set_days, only: [ :new, :edit, :add_schedule ]
 
   def new
     @mass_schedules = initialize_mass_schedules
@@ -31,6 +31,17 @@ class MassSchedulesController < ApplicationController
 
   def index
     @mass_schedules = @church.mass_schedules.where(active: true).group_by(&:day_of_week)
+  end
+
+  def add_schedule
+    day_of_week = params[:day_of_week].to_i
+    @new_schedule = @church.mass_schedules.new(day_of_week: day_of_week, active: false)
+    @index = params[:index].to_i
+    @target_dom_id = params[:target_dom_id]
+
+    respond_to do |format|
+      format.turbo_stream
+    end
   end
 
   private

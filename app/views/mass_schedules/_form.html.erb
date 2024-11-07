@@ -1,31 +1,24 @@
 <%= form_with scope: :mass_schedules,
               url: url,
               method: method,
-              class: "space-y-6", 
+              id: "mass_schedules_form",
+              class: "pb-6", 
               data: { turbo_frame: "_top" } do |f| %>
-  <div class="space-y-4">
+  <div class="space-y-4" id="schedules-container">
     <% @mass_schedules.each_with_index do |schedule, index| %>
       <%= f.fields_for :schedules_attributes, schedule, index: index do |sf| %>
-        <div class="flex items-center gap-4">
-          <div class="w-32">
-            <%= sf.check_box :active, class: "rounded border-gray-300 text-blue-600 mr-2" %>
-            <%= sf.label :active, @days[index][0].split('-').first.titleize, class: "font-medium" %>
-          </div>
-
-          <%= sf.hidden_field :day_of_week %>
-
-          <div class="flex-1">
-            <%= sf.time_field :start_time, 
-                            value: format_time_in_local_timezone(schedule.start_time, @church.timezone),
-                            class: "rounded-lg border-gray-300 #{'opacity-50' unless schedule.active?}" %>
-          </div>
-        </div>
+        <%= render "schedule_fields",
+                   schedule_fields: sf,
+                   schedule: schedule,
+                   index: index,
+                   day_name: @days[schedule.day_of_week][0],
+                   church: @church %>
       <% end %>
     <% end %>
   </div>
 
   <div class="flex justify-end gap-4 pt-4 border-t">
     <%= link_to "Cancelar", church_path(@church), class: "px-4 py-2 text-gray-700 hover:text-gray-900", target: "_top" %>
-    <%= f.submit "Confirmar alterações", class: "px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" %>
+    <%= f.submit "Confirmar alterações", class: "px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700", form: "mass_schedules_form" %>
   </div>
 <% end %>
