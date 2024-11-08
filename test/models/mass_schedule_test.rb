@@ -41,4 +41,22 @@ class MassScheduleTest < ActiveSupport::TestCase
     @mass_schedule.active = nil
     assert_not @mass_schedule.valid?
   end
+
+  test "should have unique start_time for each day_of_week of the same church" do
+    mass_schedule = MassSchedule.new(
+      church: @church,
+      day_of_week: @mass_schedule.day_of_week,
+      start_time: @mass_schedule.start_time,
+      active: true
+    )
+    assert_not mass_schedule.valid?
+
+    # Should allow same time on different days
+    mass_schedule.day_of_week = (mass_schedule.day_of_week + 1) % 7
+    assert mass_schedule.valid?
+
+    # Should allow same time for different churches
+    mass_schedule.church = churches(:sao_joao_de_brito)
+    assert mass_schedule.valid?
+  end
 end
