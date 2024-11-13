@@ -4,16 +4,19 @@
               id: "mass_schedules_form",
               class: "pb-6", 
               data: { turbo_frame: "_top" } do |f| %>
-  <div class="space-y-4" id="schedules-container">
-    <% @mass_schedules.each_with_index do |schedule, index| %>
-      <%= f.fields_for :schedules_attributes, schedule, index: index do |sf| %>
-        <%= render "schedule_fields",
-                   schedule_fields: sf,
-                   schedule: schedule,
-                   index: index,
-                   day_name: @days[schedule.day_of_week][0],
-                   church: @church %>
-      <% end %>
+  <div class="space-y-4 mb-4" id="schedules-container">
+    <% @mass_schedules.each do |day, schedules| %>
+      <div class="space-y-4" data-day="<%= day %>">
+        <% schedules.each_with_index do |schedule, index| %>
+          <%= f.fields_for "schedules[]", schedule do |sf| %>
+            <%= render "schedule_fields",
+                      schedule_fields: sf,
+                      schedule: schedule,
+                      index: index,
+                      church: @church %>
+          <% end %>
+        <% end %>
+      </div>
     <% end %>
   </div>
 
