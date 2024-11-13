@@ -1,0 +1,75 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug Rails server",
+      "type": "rdbg",
+      "request": "launch",
+      "script": "bin/rails",
+      "args": ["server"],
+      "askParameters": false,
+      "useBundler": true,
+      "env": {
+        "RAILS_ENV": "development"
+      }
+    },
+    {
+      "name": "Debug current file",
+      "type": "rdbg",
+      "request": "launch",
+      "script": "${file}",
+      "args": [],
+      "askParameters": false,
+      "useBundler": true
+    },
+    {
+      "name": "Debug RSpec - all",
+      "type": "rdbg",
+      "request": "launch",
+      "script": "bin/rspec",
+      "args": ["-I", "${workspaceRoot}"],
+      "askParameters": false,
+      "useBundler": true
+    },
+    {
+      "name": "Debug RSpec - current file",
+      "type": "rdbg",
+      "request": "launch",
+      "script": "bin/rspec",
+      "args": ["${file}"],
+      "askParameters": false,
+      "useBundler": true
+    },
+    {
+      "name": "Debug Delayed Job",
+      "type": "rdbg",
+      "request": "launch",
+      "script": "bin/rails",
+      "args": ["jobs:work"],
+      "askParameters": false,
+      "useBundler": true,
+      "env": {
+        "RAILS_ENV": "development"
+      }
+    },
+    {
+      "name": "Debug Rake Task",
+      "type": "rdbg",
+      "request": "launch",
+      "script": "bin/rake",
+      "args": ["${input:rakeTask}"],
+      "askParameters": false,
+      "useBundler": true,
+      "env": {
+        "RAILS_ENV": "development"
+      }
+    }
+  ],
+  "inputs": [
+    {
+      "id": "rakeTask",
+      "type": "promptString",
+      "description": "Enter the rake task to run"
+    }
+  ]
+}
