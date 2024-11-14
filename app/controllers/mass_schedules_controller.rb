@@ -32,7 +32,7 @@ class MassSchedulesController < ApplicationController
   def add_schedule
     day_of_week = params[:day_of_week].to_i
     @new_schedule = @church.mass_schedules.new(day_of_week: day_of_week, active: false)
-    @mass_schedules =
+    # @mass_schedules =
     @index = params[:index].to_i
     @target_dom_id = params[:target_dom_id]
 
