@@ -69,12 +69,6 @@ class MassSchedulesController < ApplicationController
     @mass_schedules = initialize_mass_schedules
   end
 
-  # def initialize_mass_schedules
-  #   @days.each_with_object({}) do |(name, wday), schedules|
-  #     existing = @church.mass_schedules.where(day_of_week: wday)
-  #     schedules[wday] = existing.any? ? existing : [ @church.mass_schedules.new(day_of_week: wday, active: false) ]
-  #   end
-  # end
   def initialize_mass_schedules
     @days.each do |name, wday|
       existing = @church.mass_schedules.where(day_of_week: wday)
@@ -89,9 +83,9 @@ class MassSchedulesController < ApplicationController
     ActiveRecord::Base.transaction do
       bulk_update_params[:schedules].values.each do |schedule_params|
         if schedule_params[:start_time].present?
-          # Convert time to UTC based on church's timezone
-          local_time = Time.parse(schedule_params[:start_time])
-          utc_time = local_time.in_time_zone(@church.timezone).utc
+          # Parse time as if it was input in church's timezone
+          church_time = ActiveSupport::TimeZone[@church.timezone].parse(schedule_params[:start_time])
+          utc_time = church_time.utc
 
           # Find by id if present, otherwise find or initialize by time and day
           schedule = if schedule_params[:id].present?
@@ -108,9 +102,9 @@ class MassSchedulesController < ApplicationController
             start_time: utc_time,
             active: schedule_params[:active] == "1" ? true : false
           )
+
           if schedule.save
           else
-            debugger
             Rails.logger.error schedule.errors.full_messages.to_sentence
           end
         end
@@ -119,7 +113,10 @@ class MassSchedulesController < ApplicationController
       # Clean up any schedules that weren't in the form
       valid_times = bulk_update_params[:schedules].values
                      .select { |s| s[:start_time].present? }
-                     .map { |s| Time.parse(s[:start_time]).in_time_zone(@church.timezone).utc }
+                     .map { |s|
+                       church_time = ActiveSupport::TimeZone[@church.timezone].parse(s[:start_time])
+                       church_time.utc
+                     }
 
       @church.mass_schedules.where.not(start_time: valid_times).destroy_all
     end
