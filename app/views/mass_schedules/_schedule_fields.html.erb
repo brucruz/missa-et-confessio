@@ -12,8 +12,7 @@
   </div>
   <%= link_to add_schedule_church_mass_schedules_path(church, 
               day_of_week: schedule.day_of_week,
-              index: index + 1,
-              next_index: defined?(@next_schedule_index) ? @next_schedule_index + 1 : index + 1),
+              index: index + 1),
               class: 'text-gray-500 hover:text-gray-700',
               data: { turbo_stream: true, turbo_method: :post } do %>
     <%= lucide_icon "plus-circle", class: "w-4 h-4" %>

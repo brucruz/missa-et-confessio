@@ -25,7 +25,7 @@ class MassSchedulesController < ApplicationController
       end
     end
     @mass_schedules.sort_by!(&:day_of_week)
-    @next_schedule_index = @mass_schedules.size # Track next available index
+    session[:next_schedule_index] = @mass_schedules.size # Initialize counter in session
   end
 
   def bulk_update
@@ -48,7 +48,10 @@ class MassSchedulesController < ApplicationController
       day_of_week: params[:day_of_week],
       active: true
     )
-    @next_schedule_index = params[:next_index].to_i
+
+    # Get and increment the next index
+    @next_schedule_index = session[:next_schedule_index] || 0
+    session[:next_schedule_index] = @next_schedule_index + 1
 
     respond_to do |format|
       format.turbo_stream
