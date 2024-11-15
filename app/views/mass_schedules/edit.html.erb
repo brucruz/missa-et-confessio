@@ -1,5 +1,5 @@
 <%= turbo_frame_tag "edit_mass_schedule" do %>
   <div class="p-4 w-full">
-    <%= render "form", url: church_mass_schedule_path(@church), method: :put %>
+    <%= render "form", url: bulk_update_church_mass_schedules_path(@church), method: :patch, local: true %>
   </div>
 <% end %>

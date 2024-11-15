@@ -13,9 +13,10 @@ Rails.application.routes.draw do
   root "churches#index"
 
   resources :churches, only: [ :index, :new, :create, :show ] do
-    resources :mass_schedules, only: [ :new, :create, :index, :edit, :update ] do
+    resources :mass_schedules, only: [ :new, :create, :index, :edit ] do
       collection do
         post :add_schedule
+        match :bulk_update, via: [ :patch, :post ]
       end
     end
     resources :confession_schedules, only: [ :new, :create ]

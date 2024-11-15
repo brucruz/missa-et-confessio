@@ -1,11 +1,11 @@
-<%= turbo_stream.after @target_dom_id do %>
+<%= turbo_stream.after "schedule_#{params[:day_of_week]}_#{params[:index].to_i - 1}" do %>
   <%= fields_for :mass_schedules do |f| %>
-    <%= f.fields_for "schedules[]", @new_schedule do |sf| %>
-      <%= render "schedule_fields", 
-                schedule_fields: sf, 
-                schedule: @new_schedule,
+    <%= f.fields_for :schedules, @new_schedule, index: @next_schedule_index do |sf| %>
+      <%= render "schedule_fields",
+                schedule_fields: sf,
+                schedule: sf.object,
                 church: @church,
-                index: @index %>
+                index: @next_schedule_index %>
     <% end %>
   <% end %>
 <% end %>

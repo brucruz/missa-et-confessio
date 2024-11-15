@@ -5,21 +5,16 @@
               class: "pb-6", 
               data: { turbo_frame: "_top" } do |f| %>
   <div class="space-y-4 mb-4" id="schedules-container">
-    <% @mass_schedules.each do |day, schedules| %>
-      <div class="space-y-4" data-day="<%= day %>">
-        <% schedules.each_with_index do |schedule, index| %>
-          <%= f.fields_for "schedules[]", schedule do |sf| %>
-            <%= render "schedule_fields",
-                      schedule_fields: sf,
-                      schedule: schedule,
-                      index: index,
-                      church: @church %>
-          <% end %>
-        <% end %>
-      </div>
+    <% @mass_schedules.each_with_index do |schedule, index| %>
+      <%= f.fields_for :schedules, schedule, index: index do |sf| %>
+        <%= render "schedule_fields",
+                  schedule_fields: sf,
+                  schedule: sf.object,
+                  church: @church,
+                  index: index %>
+      <% end %>
     <% end %>
   </div>
-
   <div class="flex justify-end gap-4 pt-4 border-t">
     <%= link_to "Cancelar", church_path(@church), class: "px-4 py-2 text-gray-700 hover:text-gray-900", target: "_top" %>
     <%= f.submit "Confirmar alterações", class: "px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700", form: "mass_schedules_form" %>
