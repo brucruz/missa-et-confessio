@@ -1,7 +1,7 @@
 <div class="min-h-screen bg-gray-50 w-full">
   <%# Hero Section %>
   <div 
-    class="bg-cover bg-center h-[40vh] relative px-10 py-14"
+    class="bg-cover bg-center sm:h-[400px] relative px-10 py-14 flex justify-center items-center"
     style="
       background-image: url('https://images.unsplash.com/photo-1545861163-d695d041a44c?auto=format&fit=crop&q=80&w=2070');
       background-blend-mode: overlay;
@@ -13,12 +13,11 @@
       <h1 class="text-4xl font-bold text-center mb-2">
         Encontre Missas e Confissões
       </h1>
-      <p class="text-xl opacity-90 mb-8">
+      <p class="text-xl opacity-90 mb-8 text-center sm:text-left">
         Descubra horários em igrejas próximas a você
       </p>
-      
-      <div class="w-full max-w-xl px-4" data-controller="address-search">
-        <%= form_with url: churches_path, method: :get, class: "flex gap-2" do |f| %>
+      <div class="w-full max-w-xl" data-controller="address-search">
+        <%= form_with url: churches_path, method: :get, class: "flex gap-2 flex-col sm:flex-row" do |f| %>
           <%= f.text_field :location,
             value: @location,
             data: {
@@ -29,30 +28,26 @@
             placeholder: "Digite seu endereço ou CEP",
             autocomplete: "off"
           %>
-          <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors flex items-center gap-2">
+          <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors flex items-center gap-2 justify-center sm:justify-normal">
             <%= lucide_icon "search", class: "w-4 h-4" %>
             Buscar
           </button>
         <% end %>
-        
         <div data-address-search-target="results" id="address_results"></div>
       </div>
     </div>
   </div>
-
   <%# Results Section %>
   <div class="max-w-4xl mx-auto px-10 py-12">
     <h2 class="text-2xl font-semibold text-gray-900 mb-6">
       Igrejas Próximas
     </h2>
-    
     <div class="space-y-6">
       <% @churches.each do |church| %>
         <%= render "church", church: church %>
       <% end %>
     </div>
   </div>
-
   <%= link_to new_church_path, 
     class: "fixed bottom-8 right-8 bg-blue-600 text-white p-4 rounded-full shadow-lg hover:bg-blue-700 transition-colors" do %>
     <span class="sr-only">Adicionar Igreja</span>

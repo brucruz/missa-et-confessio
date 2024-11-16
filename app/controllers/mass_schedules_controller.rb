@@ -39,10 +39,6 @@ class MassSchedulesController < ApplicationController
       notice: "Horários de missa atualizados com sucesso."
   end
 
-  def index
-    @mass_schedules = @church.mass_schedules.where(active: true).group_by(&:day_of_week)
-  end
-
   def add_schedule
     @new_schedule = MassSchedule.new(
       day_of_week: params[:day_of_week],
@@ -84,7 +80,7 @@ class MassSchedulesController < ApplicationController
 
   def save_mass_schedules
     ActiveRecord::Base.transaction do
-      bulk_update_params[:schedules].values.each do |schedule_params|
+      mass_schedule_params[:schedules].values.each do |schedule_params|
         if schedule_params[:start_time].present?
           # Parse time as if it was input in church's timezone
           church_time = ActiveSupport::TimeZone[@church.timezone].parse(schedule_params[:start_time])
@@ -114,7 +110,7 @@ class MassSchedulesController < ApplicationController
       end
 
       # Clean up any schedules that weren't in the form
-      valid_times = bulk_update_params[:schedules].values
+      valid_times = mass_schedule_params[:schedules].values
                      .select { |s| s[:start_time].present? }
                      .map { |s|
                        church_time = ActiveSupport::TimeZone[@church.timezone].parse(s[:start_time])
@@ -125,11 +121,7 @@ class MassSchedulesController < ApplicationController
     end
   end
 
-  def bulk_update_params
-    params.require(:mass_schedules).permit(schedules: [ :id, :active, :day_of_week, :start_time ])
-  end
-
   def mass_schedule_params
-    params.require(:mass_schedules).permit(schedules: [ :active, :day_of_week, :start_time ])
+    params.require(:mass_schedules).permit(schedules: [ :id, :active, :day_of_week, :start_time ])
   end
 end
